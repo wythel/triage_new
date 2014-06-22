@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @report.url %>
+</p>
+
+<p>
+  <strong>Pass:</strong>
+  <%= @report.pass %>
+</p>
+
+<p>
+  <strong>Fail:</strong>
+  <%= @report.fail %>
+</p>
+
+<p>
+  <strong>Error:</strong>
+  <%= @report.error %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @report.note %>
+</p>
+
+<p>
+  <strong>Plan:</strong>
+  <%= @report.plan_id %>
+</p>
+
+<%= link_to 'Edit', edit_report_path(@report) %> |
+<%= link_to 'Back', reports_path %>

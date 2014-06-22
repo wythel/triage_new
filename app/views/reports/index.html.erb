@@ -1,0 +1,42 @@
+<h1>Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Branch</th>
+      <th>Plan</th>
+      <th>Url</th>
+      <th>Pass</th>
+      <th>Fail</th>
+      <th>Error</th>
+      <th>Pass%</th>
+      <th>Note</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+
+      <tr>
+        <td><%= link_to report.plan.branch.title, report.plan.branch%></td>
+        <td><%= link_to report.plan.title, report.plan %></td>
+        <td><a href='<%= report.url %>' target='_blank'><%= report.url %></a></td>
+        <td><%= report.pass %></td>
+        <td><%= report.fail %></td>
+        <td><%= report.error %></td>
+
+        <% pass_rate = (report.pass.to_f / (report.pass.to_f + report.fail.to_f)) * 100 %>
+        <td><%=  '%.2f' % pass_rate %> %</td>
+
+        <td><%= report.note %></td>
+        <td><%= link_to 'Edit', edit_report_path(report)%></td>
+        <td><%= link_to 'Delete', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Report', new_report_path %>

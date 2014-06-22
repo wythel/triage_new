@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <h1>Branch: <%= @branch.title %></h1>
+
+</p>
+<div>
+	<h2> Plans </h2>
+	<% @branch.plans.each do |plan| %>
+	<%= link_to plan.title, plan%> <br/>
+	<% end %>
+</div>
+
+<%= link_to 'Edit', edit_branch_path(@branch) %> |
+<%= link_to 'Back', branches_path %>
