@@ -9,8 +9,16 @@ class ReportsController < ApplicationController
     end
 
     def list
-	   @reports = Report.all
-       @plans = Plan.all.sort_by { |p| [p.branch, p.title]}
+       @reports = Report.all
+       branches = Branch.all.order('title asc')
+       table = {}
+
+       branches.each do |b|
+        plans = Plan.where(branch_id: b.id)
+        table[b.title] = plans
+       end
+
+       @table = table
     end
 
     # GET /reports/1
@@ -34,7 +42,7 @@ class ReportsController < ApplicationController
 
         respond_to do |format|
         if @report.save
-            format.html { redirect_to @report, notice: 'Report was successfully created.' }
+            format.html { redirect_to action: "index", notice: 'Report was successfully created.' }
             format.json { render :show, status: :created, location: @report }
         else
             format.html { render :new }
@@ -48,7 +56,7 @@ class ReportsController < ApplicationController
     def update
         respond_to do |format|
             if @report.update(report_params)
-                format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+                format.html { redirect_to action: "index", notice: 'Report was successfully updated.' }
                 format.json { render :show, status: :ok, location: @report }
             else
                 format.html { render :edit }
@@ -80,7 +88,8 @@ class ReportsController < ApplicationController
 
     def get_plan_selection
         s = []
-        Plan.all.each do |p|
+        plans = Plan.all.sort_by {|p| [p.branch.title, p.title]}
+        plans.each do |p|
             s.push([p.branch.title + '-' + p.title, p.id])
         end
         @plan_selection = s

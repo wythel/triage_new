@@ -1,1 +1,26 @@
 <p>This is index </p>
+
+<% @table.keys.each do |branch| %>
+<h2><%= branch %></h2>
+<table>
+  <thead>
+    <tr>
+      <th>Plan</th>
+      <th>Owner</th>
+      <th>Build</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @table[branch].each do |plan| %>
+    <% report = plan.reports.find_by('created_at >= ?', Time.zone.now.beginning_of_week) %>
+      <tr>
+        <td><%= plan.title %></td>
+        <td><%= plan.owner %></td>
+        <td><%= report.build %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<% end %>
