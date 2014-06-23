@@ -8,6 +8,11 @@ class ReportsController < ApplicationController
         @reports = Report.all
     end
 
+    def list
+	   @reports = Report.all
+       @plans = Plan.all.sort_by { |p| [p.branch, p.title]}
+    end
+
     # GET /reports/1
     # GET /reports/1.json
     def show
@@ -70,7 +75,7 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-        params.require(:report).permit(:url, :pass, :fail, :error, :note, :plan_id, :branch_id)
+        params.require(:report).permit(:url, :pass, :fail, :error, :note, :plan_id, :build)
     end
 
     def get_plan_selection

@@ -18,6 +18,10 @@
   </div>
 
   <div class="field">
+      <%= f.label :build %><br>
+      <%= f.number_field :build %>
+  </div>
+  <div class="field">
     <%= f.label :url %><br>
     <%= f.text_field :url %>
   </div>
@@ -32,7 +36,7 @@
   <div class="field">
     <%= f.label :error %><br>
     <%= f.number_field :error %>
-  </div>
+</div>
   <div class="field">
     <%= f.label :note %><br>
     <%= f.text_area :note %>
