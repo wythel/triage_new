@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
         plans = Plan.where(branch_id: b.id)
         table[b.title] = plans
        end
-
+       @branches = branches
        @table = table
     end
 

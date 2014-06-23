@@ -1,6 +1,7 @@
-<h2>Triage reports for this week<h2>
+<h2>Triage reports for this week</h2>
 
 <% @table.keys.each do |branch| %>
+<div class='report' id='<%= branch %>'>
 <h3><%= branch %></h3>
 <table>
   <thead>
@@ -36,11 +37,11 @@
 
         <td><%= report.note %></td>
         <% else %>
-        <td colspan='7'>This plan does not have a report this week</td>
+        <td colspan='7' class='warning'>This plan does not have a report this week</td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-<br>
+</div>
 <% end %>
