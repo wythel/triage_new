@@ -1,14 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @plan.title %>
-</p>
 
+
+<h3> <%= @plan.branch.title + '-' + @plan.title %> </h3>
 <p>
   <strong>Owner:</strong>
   <%= @plan.owner %>
 </p>
+
+<table>
+    <thead>
+        <th>Published</th>
+        <th>Url</th>
+        <th>Pass</th>
+        <th>Fail</th>
+        <th>Error</th>
+        <th>Pass%</th>
+        <th>Note</th>
+    </thead>
+    <tbody>
+    <% @plan.reports.order('created_at desc').each do |report| %>
+        <tr>
+            <td><%= report.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
+            <td><a href='<%= report.url %>' target='_blank'><%= report.url %></a></td>
+            <td><%= report.pass %></td>
+            <td><%= report.fail %></td>
+            <td><%= report.error %></td>
+
+            <% pass_rate = (report.pass.to_f / (report.pass.to_f + report.fail.to_f)) * 100 %>
+            <td><%=  '%.2f' % pass_rate %> %</td>
+
+            <td><%= report.note %></td>
+            <td><%= link_to 'Edit', edit_report_path(report)%></td>
+            <td><%= link_to 'Delete', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
 
 <%= link_to 'Edit', edit_plan_path(@plan) %> |
 <%= link_to 'Back', plans_path %>
