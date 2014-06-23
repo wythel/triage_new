@@ -8,16 +8,36 @@
       <th>Plan</th>
       <th>Owner</th>
       <th>Build</th>
+      <th>Url</th>
+      <th>Pass</th>
+      <th>Fail</th>
+      <th>Error</th>
+      <th>Pass%</th>
+      <th>Note</th>
     </tr>
   </thead>
 
   <tbody>
     <% @table[branch].each do |plan| %>
     <% report = plan.reports.find_by('created_at >= ?', Time.zone.now.beginning_of_week) %>
+
       <tr>
         <td><%= plan.title %></td>
         <td><%= plan.owner %></td>
+        <% if report != nil %>
+        <td><a href='<%= report.url %>' target='_blank'><%= report.url %></a></td>
         <td><%= report.build %></td>
+        <td><%= report.pass %></td>
+        <td><%= report.fail %></td>
+        <td><%= report.error %></td>
+
+        <% pass_rate = (report.pass.to_f / (report.pass.to_f + report.fail.to_f)) * 100 %>
+        <td><%=  '%.2f' % pass_rate %> %</td>
+
+        <td><%= report.note %></td>
+        <% else %>
+        <td colspan='7'>This plan does not have a report this week</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
