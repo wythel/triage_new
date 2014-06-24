@@ -1,15 +1,20 @@
-<h2>Triage reports for this week</h2>
+<div><h2>Triage reports for this week</h2></div>
+<p id="notice"><%= notice %></p>
 
 <% @table.keys.each do |branch| %>
 <div class='report' id='<%= branch %>'>
-<h3><%= branch %></h3>
+	<div>
+		<span class='title'><%= branch %></span>
+		<a href='#' class='toggle-table'>Toggle table</a> <br>
+	</div>
+	<div>
 <table>
   <thead>
     <tr>
       <th>Plan</th>
       <th>Owner</th>
-      <th>Build</th>
       <th>Url</th>
+      <th>Build</th>
       <th>Pass</th>
       <th>Fail</th>
       <th>Error</th>
@@ -23,7 +28,7 @@
     <% report = plan.reports.find_by('created_at >= ?', Time.zone.now.beginning_of_week) %>
 
       <tr>
-        <td><%= plan.title %></td>
+        <td><%= link_to plan.title, plan_path(plan) %></td>
         <td><%= plan.owner %></td>
         <% if report != nil %>
         <td><a href='<%= report.url %>' target='_blank'><%= report.url %></a></td>
@@ -44,4 +49,7 @@
   </tbody>
 </table>
 </div>
+</div>
 <% end %>
+
+<%= link_to 'New Report', new_report_path %>

@@ -13,7 +13,22 @@
  *= require_tree .
  *= require_self
  */
+div{
+	margin: 15px;
+}
 
 td.warning {
 	background: #FFCCCC
+}
+
+span.title{
+	font-size: 2em;
+}
+
+.report{
+	margin: 15px;
+}
+
+.toggle-table{
+	font-size: 0.8em;
 }
