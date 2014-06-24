@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
 
     def list
        @reports = Report.all
-       branches = Branch.all.order('title asc')
+       branches = Branch.where(disabled: false).order('title asc')
        table = {}
 
        branches.each do |b|
