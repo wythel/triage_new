@@ -18,7 +18,7 @@ div{
 }
 
 td.warning {
-	background: #FFCCCC
+	background: #FFFF99
 }
 
 span.title{
@@ -31,4 +31,12 @@ span.title{
 
 .toggle-table{
 	font-size: 0.8em;
+}
+
+td.pass{
+	background: #99FF99;
+}
+
+td.fail{
+	background: #FFA3A3;
 }

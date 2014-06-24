@@ -38,7 +38,7 @@
         <td><%= report.error %></td>
 
         <% pass_rate = (report.pass.to_f / (report.pass.to_f + report.fail.to_f)) * 100 %>
-        <td><%=  '%.2f' % pass_rate %> %</td>
+        <td class='<%= pass_rate == 100 ? "pass" : "fail" %>'><%=  '%.2f' % pass_rate %> %</td>
 
         <td><%= report.note %></td>
         <% else %>
