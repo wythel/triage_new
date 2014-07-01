@@ -1,5 +1,5 @@
 class BranchesController < ApplicationController
-  before_action :set_branch, only: [:show, :edit, :update, :destroy, :add_plan]
+  before_action :set_branch, only: [:show, :edit, :update, :destroy, :add_plan, :disable, :enable]
 
   # GET /branches
   # GET /branches.json
@@ -58,6 +58,30 @@ class BranchesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to branches_url, notice: 'Branch was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def disable
+    respond_to do |format|
+      if @branch.update(disabled: true)
+        @branches = Branch.all
+        format.html { render :index, notice: 'Branch was successfully disabled.' }
+        format.json { render :show, status: :created, location: @branch }
+      else
+        format.html { render :index, notice: 'Failed to disable the branch.' }
+      end
+    end
+  end
+
+  def enable
+    respond_to do |format|
+      if @branch.update(disabled: false)
+        @branches = Branch.all
+        format.html { render :index, notice: 'Branch was successfully enabled.' }
+        format.json { render :show, status: :created, location: @branch }
+      else
+        format.html { render :index, notice: 'Failed to enable the branch.' }
+      end
     end
   end
 

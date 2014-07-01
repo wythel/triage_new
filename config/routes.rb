@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   resources :reports
   root "reports#list"
+
+  post 'branches/:id/disable', as: 'disable_branch', to: 'branches#disable'
+  post 'branches/:id/enable', as: 'enable_branch', to: 'branches#enable'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
